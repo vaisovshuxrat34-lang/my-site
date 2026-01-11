@@ -1,49 +1,101 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <title>Mening Birinchi Saytim</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #2e8b57;
-            font-size: 48px;
-        }
-        p {
-            font-size: 20px;
-            color: #555;
-        }
-        a {
-            color: #1e90ff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .box {
-            margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #2e8b57;
-            width: 50%;
-            border-radius: 10px;
-            background-color: #e6f2ff;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Xasanboy nososchi dam olish maskani</title>
+<style>
+body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+h1 { text-align:center; color: darkgreen; }
+.topchalar { display:flex; flex-wrap: wrap; justify-content:center; }
+.topcha { width: 230px; border:2px solid green; margin:10px; padding:10px; background:#b7ffb7; font-size:14px; }
+.band { background:#ffb7b7; border-color:red; }
+label, input, button { display:block; width:100%; margin-top:5px; }
+.mijoz { font-size:13px; text-align:left; margin-top:5px; }
+</style>
 </head>
 <body>
-    <h1>Salom, dunyo!</h1>
-    <p>Bu mening birinchi sayt testim.</p>
-    
-    <div class="box">
-        <p>Bu yangi qo‘shilgan quti elementidir.</p>
-        <a href="#">Ko‘proq ma’lumot</a>
-    </div>
+
+<h1>Xasanboy nososchi dam olish maskani</h1>
+<div class="topchalar" id="topchalar"></div>
+
+<script>
+// --- 1. Topchalar ma'lumotlari ---
+const topchalar = [];
+for (let i = 1; i <= 14; i++) {
+    topchalar.push({
+        id: i,
+        nomi: i<=11 ? "Asosiy joy" : "Nosoz oldi joy",
+        band: false,
+        mijoz: null
+    });
+}
+
+// --- 2. Sahifani chizish ---
+function chizish() {
+    const container = document.getElementById("topchalar");
+    container.innerHTML = "";
+
+    topchalar.forEach(topcha => {
+        const div = document.createElement("div");
+        div.className = "topcha" + (topcha.band ? " band" : "");
+
+        // Mijoz ma'lumotlari
+        let mijozHTML = "";
+        if(topcha.mijoz){
+            const m = topcha.mijoz;
+            mijozHTML = `<hr><b>Mijoz:</b><br>Ism: ${m.ism}<br>Tel: ${m.tel}<br>Sana: ${m.sana}<br>Vaqt: ${m.vaqt}`;
+        }
+
+        div.innerHTML = `
+            <b>Topcha ${topcha.id}</b><br>
+            ${topcha.nomi}<br>
+            Holati: ${topcha.band ? "🔴 Band" : "🟢 Bo‘sh"}
+            ${mijozHTML}
+        `;
+
+        if(!topcha.band){
+            // Band qilish formasi
+            const ism = document.createElement("input"); ism.placeholder="Ism";
+            const tel = document.createElement("input"); tel.placeholder="Telefon";
+            const sana = document.createElement("input"); sana.type="date";
+            const vaqt = document.createElement("input"); vaqt.type="time";
+            const btn = document.createElement("button"); btn.innerText="Band qilish";
+
+            btn.addEventListener("click", ()=>{
+                if(!ism.value || !tel.value || !sana.value || !vaqt.value){
+                    alert("Hamma maydonlarni to‘ldiring!");
+                    return;
+                }
+                topcha.band = true;
+                topcha.mijoz = { ism: ism.value, tel: tel.value, sana: sana.value, vaqt: vaqt.value };
+                chizish();
+            });
+
+            div.appendChild(ism);
+            div.appendChild(tel);
+            div.appendChild(sana);
+            div.appendChild(vaqt);
+            div.appendChild(btn);
+        } else {
+            // Bo‘shatish tugmasi
+            const boShatBtn = document.createElement("button");
+            boShatBtn.innerText = "Bo‘shatish";
+            boShatBtn.addEventListener("click", ()=>{
+                if(confirm("Topchani bo‘shatmoqchimisiz?")){
+                    topcha.band = false;
+                    topcha.mijoz = null;
+                    chizish();
+                }
+            });
+            div.appendChild(boShatBtn);
+        }
+
+        container.appendChild(div);
+    });
+}
+
+chizish();
+</script>
+
 </body>
 </html>
