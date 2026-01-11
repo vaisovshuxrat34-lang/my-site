@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Mening Birinchi Saytim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 48px;
+        }
+        p {
+            font-size: 20px;
+            color: #555;
+        }
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .box {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #2e8b57;
+            width: 50%;
+            border-radius: 10px;
+            background-color: #e6f2ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Salom, dunyo!</h1>
+    <p>Bu mening birinchi sayt testim.</p>
+    
+    <div class="box">
+        <p>Bu yangi qo‘shilgan quti elementidir.</p>
+        <a href="#">Ko‘proq ma’lumot</a>
+    </div>
+</body>
+</html>
